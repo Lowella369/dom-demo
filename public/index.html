@@ -36,25 +36,32 @@
 </body>
 <script>
   
+  //search the document object for an element with the id btn
   let btn = document.getElementById('btn');
+  //search the document object for an element with the id fashion
   let fashion = document.getElementById('fashion');
 
   //addEventListener takes 2 args: event string, and callback fn
   btn.addEventListener('click', async () => {
 
+    //fetch to get to fashion route (in app.js)
     let response = await window.fetch('/fashion');
-
+    //console.log the response
     console.log("RESPONSE", response);
-
-    let responseJSON = await response.json() //parses JSON
-
+    //convert the response to json
+    let responseJSON = await response.json()
+    //console.log the json
     console.log("parsed response JSON", responseJSON);
-
+    //store the response in the variable coolTrends
     let {coolTrends} = responseJSON;
-
+    console.log("the array coolTrends", coolTrends)
+    //for each element in coolTrends, 
     coolTrends.forEach(item => {
+      //create new HTML Element - specifically a list item
       const itemEl = document.createElement('li');
+      //sets the inner text of the list item to the string from the reponse
       itemEl.innerText = item;
+      //inserts the element into the unordered list named fashion
       fashion.append(itemEl)
     })
   });
